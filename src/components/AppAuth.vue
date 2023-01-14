@@ -152,12 +152,12 @@
             <div class="mb-3">
               <label class="inline-block mb-2">Confirm Password</label>
               <vee-field
-                name="password-confirm"
+                name="confirm_password"
                 type="password"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Confirm Password"
               />
-              <error-message class="text-red-600" name="password-confirm" />
+              <error-message class="text-red-600" name="confirm_password" />
             </div>
             <!-- Country -->
             <div class="mb-3">
@@ -217,9 +217,9 @@ export default {
         email: "required|email",
         age: `required|min_value:${MIN_USER_AGE}|max_value:${MAX_USER_AGE}`,
         password: "required|min:9|max:100|excluded:password",
-        "password-confirm": "confirmed:@password",
-        country: "required|excluded:Antarctica",
-        tos: "required",
+        confirm_password: "passwords_mismatch:@password",
+        country: "required|country_excluded:Antarctica",
+        tos: "tos",
       },
       userData: {
         country: "USA",
