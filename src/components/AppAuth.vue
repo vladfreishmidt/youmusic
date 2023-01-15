@@ -60,24 +60,32 @@
           </ul>
 
           <!-- Login Form -->
-          <form v-show="tab === 'login'">
+          <vee-form
+            v-show="tab === 'login'"
+            :validation-schema="login_schema"
+            @submit="login"
+          >
             <!-- Email -->
             <div class="mb-3">
               <label class="inline-block mb-2">Email</label>
-              <input
+              <vee-field
                 type="email"
+                name="email"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Enter Email"
               />
+              <error-message class="text-red-600" name="email" />
             </div>
             <!-- Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <input
+              <vee-field
                 type="password"
+                name="password"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Password"
               />
+              <error-message class="text-red-600" name="password" />
             </div>
             <button
               type="submit"
@@ -85,7 +93,7 @@
             >
               Submit
             </button>
-          </form>
+          </vee-form>
 
           <!-- Registration Form -->
           <div
@@ -95,6 +103,7 @@
           >
             {{ reg_alert_msg }}
           </div>
+
           <vee-form
             v-show="tab === 'register'"
             :validation-schema="schema"
@@ -229,6 +238,10 @@ export default {
         country: "required|country_excluded:Antarctica",
         tos: "tos",
       },
+      login_schema: {
+        email: "required|email",
+        password: "required|min:9|max:100",
+      },
       userData: {
         country: "USA",
       },
@@ -251,6 +264,9 @@ export default {
       this.reg_alert_variant = "bg-green-500";
       this.reg_alert_msg = "Success! Your account has been created.";
       console.log(values);
+    },
+    login(value) {
+      console.log(value);
     },
   },
   computed: {
